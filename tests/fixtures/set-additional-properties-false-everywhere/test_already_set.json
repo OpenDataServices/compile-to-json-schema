@@ -1,0 +1,27 @@
+{
+    "definitions": {
+        "address": {
+            "title": "An Address",
+            "description": "A Description",
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "address": {"type": "string"},
+                "country": {"type": "string"}
+            }
+        }
+    },
+    "additionalProperties": true,
+    "properties": {
+      "home_address": {
+        "title": "Home Address",
+        "description": "Where the person lives",
+        "$ref": "#/definitions/address"
+      },
+      "work_address": {
+        "title": "Work Address",
+        "description": "Where the person works",
+        "$ref": "#/definitions/address"
+      }
+    }
+}

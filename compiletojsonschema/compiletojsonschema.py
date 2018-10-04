@@ -7,8 +7,9 @@ from copy import deepcopy
 
 class CompileToJsonSchema:
 
-    def __init__(self, input_filename):
+    def __init__(self, input_filename, set_additional_properties_false_everywhere=False):
         self.input_filename = input_filename
+        self.set_additional_properties_false_everywhere = set_additional_properties_false_everywhere
 
     def get(self):
         with open(self.input_filename) as fp:
@@ -33,6 +34,8 @@ class CompileToJsonSchema:
         if 'properties' in source:
             for leaf in list(source['properties']):
                 out['properties'][leaf] = self.__process(source['properties'][leaf])
+            if self.set_additional_properties_false_everywhere:
+                out['additionalProperties'] = False
 
         if 'items' in source:
             out['items'] = self.__process(source['items'])

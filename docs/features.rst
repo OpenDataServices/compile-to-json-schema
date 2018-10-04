@@ -80,3 +80,14 @@ This tool will preserve `title` and `description` when resolving refs, producing
         }
       }
     }
+
+
+Set additional properties false everywhere
+------------------------------------------
+
+While your schema may welcome additional properties in normal use,
+you may want to generate a strict version of your schema that doesn't allow any additional properties.
+
+This can be used for testing - for example, checking your sample data does not have any additional properties.
+
+This is an optional mode, which defaults to off.

@@ -16,3 +16,13 @@ The output is printed. To save the output to file, simple redirect it:
 
     compiletojsonschema input.json > output.json
 
+
+Set additional properties false everywhere
+------------------------------------------
+
+To enable this mode, pass the `--set-additional-properties-false-everywhere` flag.
+
+
+.. code-block:: shell-session
+
+    compiletojsonschema --set-additional-properties-false-everywhere input.json
