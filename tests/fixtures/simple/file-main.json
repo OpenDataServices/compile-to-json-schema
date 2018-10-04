@@ -1,0 +1,14 @@
+{
+    "properties": {
+      "home_address": {
+        "title": "Home Address",
+        "description": "Where the person lives",
+        "$ref": "file-definitions.json#/definition/address"
+      },
+      "work_address": {
+        "title": "Work Address",
+        "description": "Where the person works",
+        "$ref": "file-definitions.json#/definition/address"
+      }
+    }
+}

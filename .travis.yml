@@ -1,0 +1,11 @@
+language: python
+cache: pip
+python:
+  - "3.6"
+  - "3.5"
+  - "3.4"
+install:
+  - pip install .[test]
+script:
+  - flake8
+  - python -m pytest tests/

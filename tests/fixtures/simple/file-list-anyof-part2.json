@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "statementType": {
+      "title": "Statement type",
+      "description": " This should always be 'work.",
+      "type": "string",
+      "enum": [
+        "work"
+      ]
+    },
+    "address": {
+      "title": "Work Address",
+      "description": "Where the person works",
+      "$ref": "file-definitions.json#/definition/address"
+    }
+  }
+}
