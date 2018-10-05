@@ -3,6 +3,7 @@ import json
 import pathlib
 import os
 from copy import deepcopy
+from collections import OrderedDict
 
 
 class CompileToJsonSchema:
@@ -13,7 +14,10 @@ class CompileToJsonSchema:
 
     def get(self):
         with open(self.input_filename) as fp:
-            resolved = jsonref.load(fp, base_uri=pathlib.Path(os.path.realpath(self.input_filename)).as_uri())
+            resolved = jsonref.load(fp,
+                                    object_pairs_hook=OrderedDict,
+                                    base_uri=pathlib.Path(os.path.realpath(self.input_filename)).as_uri()
+                                    )
 
         resolved = self.__process(resolved)
 
