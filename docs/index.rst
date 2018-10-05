@@ -10,5 +10,6 @@ It is Python tool that can be used as a library from other Python programmes, or
 .. toctree::
 
    features.rst
+   installing.rst
    cli.rst
 
