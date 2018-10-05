@@ -7,6 +7,7 @@ def main():
 
     parser.add_argument('input_file')
     parser.add_argument(
+        "-s",
         "--set-additional-properties-false-everywhere",
         action='store_true',
         help="Set Additional Properties False everywhere? This generates strict schemas that can be used for testing.")

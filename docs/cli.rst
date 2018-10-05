@@ -20,9 +20,10 @@ The output is printed. To save the output to file, simple redirect it:
 Set additional properties false everywhere
 ------------------------------------------
 
-To enable this mode, pass the `--set-additional-properties-false-everywhere` flag.
+To enable this mode, pass the `--set-additional-properties-false-everywhere` or `-s` flag.
 
 
 .. code-block:: shell-session
 
+    compiletojsonschema -s input.json
     compiletojsonschema --set-additional-properties-false-everywhere input.json
