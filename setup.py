@@ -4,7 +4,7 @@ setup(
     name='complietojsonschema',
     version='0.0.0',
     author='Open Data Services',
-    author_email='data@opendataservices.coop',
+    author_email='code@opendataservices.coop',
     url='https://github.com/OpenDataServices/compile-to-json-schema',
     description='Compile To JSON Schema',
     license='BSD',
