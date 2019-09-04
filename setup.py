@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='complietojsonschema',
+    name='compiletojsonschema',
     version='0.1.0',
     author='Open Data Services',
     author_email='code@opendataservices.coop',
