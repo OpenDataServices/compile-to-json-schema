@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='complietojsonschema',
-    version='0.0.0',
+    version='0.1.0',
     author='Open Data Services',
     author_email='code@opendataservices.coop',
     url='https://github.com/OpenDataServices/compile-to-json-schema',
