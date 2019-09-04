@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Corrected Spelling of package name in setup.py
+
+
 ## [0.1.0] - 2019-08-04
 
 ### Added
