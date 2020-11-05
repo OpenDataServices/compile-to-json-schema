@@ -19,9 +19,13 @@ setup(
     long_description="A suite of command-line tools for working with BODS data",
     install_requires=["jsonref", "jsonschema",],
     extras_require={"test": extras_require_test,},
+    python_requires=">=3.5",
     classifiers=[
         "License :: OSI Approved :: BSD License",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     entry_points="""[console_scripts]
 compiletojsonschema = compiletojsonschema.cli.__main__:main""",
