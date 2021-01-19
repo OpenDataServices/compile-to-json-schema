@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 import pathlib
@@ -9,12 +10,19 @@ import jsonref
 
 class CompileToJsonSchema:
     def __init__(
-        self, input_filename, set_additional_properties_false_everywhere=False
+        self,
+        input_filename,
+        set_additional_properties_false_everywhere=False,
+        codelist_base_directory=None,
     ):
         self.input_filename = input_filename
         self.set_additional_properties_false_everywhere = (
             set_additional_properties_false_everywhere
         )
+        if codelist_base_directory:
+            self.codelist_base_directory = os.path.expanduser(codelist_base_directory)
+        else:
+            self.codelist_base_directory = os.getcwd()
 
     def get(self):
         with open(self.input_filename) as fp:
@@ -53,4 +61,27 @@ class CompileToJsonSchema:
             for idx, data in enumerate(list(source["oneOf"])):
                 out["oneOf"][idx] = self.__process(source["oneOf"][idx])
 
+        if "codelist" in source and (
+            "openCodelist" not in source or not source["openCodelist"]
+        ):
+            filename = os.path.join(self.codelist_base_directory, source["codelist"])
+            if os.path.isfile(filename):
+                values = []
+                with open(filename) as fp:
+                    csvreader = csv.reader(fp, delimiter=",", quotechar='"')
+                    next(csvreader, None)
+                    for row in csvreader:
+                        if len(row) > 0 and row[0]:
+                            values.append(row[0])
+                if values:
+                    out["enum"] = values
+            else:
+                raise CodeListNotFoundException(
+                    "Can not find codelist: " + source["codelist"]
+                )
+
         return out
+
+
+class CodeListNotFoundException(Exception):
+    pass

@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "pet": {
+      "title": "Pet",
+      "codelist": "pets.csv"
+    }
+  }
+}
