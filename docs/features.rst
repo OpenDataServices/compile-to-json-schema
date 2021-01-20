@@ -82,6 +82,67 @@ This tool will preserve `title` and `description` when resolving refs, producing
     }
 
 
+Codelists
+---------
+
+If you want to use the enum option, you have to include all the possible options for that JSON in the schema. There may
+be some reasons why you don't want to do that:
+
+* The list is very long and makes the schema hard to read or work with.
+* The list might be updated from time to time, and you want to make it easy to update (eg a list of currencies).
+* You want the options in the list to be used in other places.
+
+You can use the codelist feature - this will take the entries of an enum from an external file.
+
+The external file should be a CSV. The first row will be ignored - so this can be used for headers. The contents of the
+first column will be used for enum values. Later columns will be ignored, so you can use them for whatever you want.
+
+So the JSON Schema would look like:
+
+.. code-block:: json
+
+    {
+      "properties": {
+        "pet": {
+          "title": "Pet",
+          "codelist": "pets.csv"
+        }
+      }
+    }
+
+And the pets.csv file would look like:
+
+.. code-block::
+
+    Pet,Comment
+    Dog,Good
+    Cat,Better
+    Parrot,Best
+
+And the resulting output would be:
+
+.. code-block:: json
+
+    {
+      "properties": {
+        "pet": {
+          "title": "Pet",
+          "codelist": "pets.csv",
+          "enum": [
+            "Dog",
+            "Cat",
+            "Parrot"
+          ]
+        }
+      }
+    }
+
+You can pass a base directory that will be searched for codelists. If not passed, the current working directory is searched
+
+Finally, if the `openCodelist` variable exists and that is set to true, nothing will be done. This means a codelist is
+"Open" (ie - allows the user to add any values they want) as opposed to "Closed" (ie - the user can only add the values
+in the codelist).
+
 Set additional properties false everywhere
 ------------------------------------------
 

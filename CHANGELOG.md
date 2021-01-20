@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Codelist feature https://github.com/OpenDataServices/compile-to-json-schema/issues/2
+
 ### Changes
 
 - Specify a minimum Python version, and set that to be 3.5

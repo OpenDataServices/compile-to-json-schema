@@ -16,7 +16,7 @@ setup(
     description="Compile To JSON Schema",
     license="BSD",
     packages=find_packages(),
-    long_description="A suite of command-line tools for working with BODS data",
+    long_description="Command-line tools and library for doing some non-standard things with JSON Schema",
     install_requires=["jsonref", "jsonschema",],
     extras_require={"test": extras_require_test,},
     python_requires=">=3.5",

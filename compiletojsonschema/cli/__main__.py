@@ -13,11 +13,17 @@ def main():
         action="store_true",
         help="Set Additional Properties False everywhere? This generates strict schemas that can be used for testing.",
     )
+    parser.add_argument(
+        "-c",
+        "--codelist-base-directory",
+        help="Which directory we should look in for codelists",
+    )
 
     args = parser.parse_args()
 
     ctjs = CompileToJsonSchema(
         input_filename=args.input_file,
         set_additional_properties_false_everywhere=args.set_additional_properties_false_everywhere,
+        codelist_base_directory=args.codelist_base_directory,
     )
     print(ctjs.get_as_string())
