@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-01-27
+
 ### Added
 
 - Codelist feature https://github.com/OpenDataServices/compile-to-json-schema/issues/2
