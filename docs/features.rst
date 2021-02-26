@@ -112,7 +112,7 @@ So the JSON Schema would look like:
 
 And the pets.csv file would look like:
 
-.. code-block::
+.. code-block:: csv
 
     Pet,Comment
     Dog,Good
