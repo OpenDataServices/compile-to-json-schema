@@ -11,11 +11,15 @@ import jsonref
 class CompileToJsonSchema:
     def __init__(
         self,
-        input_filename,
+        input_filename=None,
         set_additional_properties_false_everywhere=False,
         codelist_base_directory=None,
+        input_schema=None,
     ):
+        if not isinstance(input_schema, dict) and not input_filename:
+            raise Exception("Must pass input_filename or input_schema")
         self.input_filename = input_filename
+        self.input_schema = input_schema
         self.set_additional_properties_false_everywhere = (
             set_additional_properties_false_everywhere
         )
@@ -25,12 +29,19 @@ class CompileToJsonSchema:
             self.codelist_base_directory = os.getcwd()
 
     def get(self):
-        with open(self.input_filename) as fp:
-            resolved = jsonref.load(
-                fp,
-                object_pairs_hook=OrderedDict,
-                base_uri=pathlib.Path(os.path.realpath(self.input_filename)).as_uri(),
-            )
+        if self.input_filename:
+            with open(self.input_filename) as fp:
+                resolved = jsonref.load(
+                    fp,
+                    object_pairs_hook=OrderedDict,
+                    base_uri=pathlib.Path(
+                        os.path.realpath(self.input_filename)
+                    ).as_uri(),
+                )
+        elif isinstance(self.input_schema, dict):
+            resolved = jsonref.JsonRef.replace_refs(self.input_schema)
+        else:
+            raise Exception("Must pass input_filename or input_schema")
 
         resolved = self.__process(resolved)
 
