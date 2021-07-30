@@ -1,6 +1,18 @@
 Installing
 ==========
 
+Via pip
+-------
+
+It is available at https://pypi.org/project/compiletojsonschema/
+
+.. code-block:: shell-session
+
+    pip install compiletojsonschema
+
+Directly
+--------
+
 To install,
 
 1) Check out the git repository ( https://github.com/OpenDataServices/compile-to-json-schema ) onto your machine.
