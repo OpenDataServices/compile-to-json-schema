@@ -72,6 +72,14 @@ class CompileToJsonSchema:
             for idx, data in enumerate(list(source["oneOf"])):
                 out["oneOf"][idx] = self.__process(source["oneOf"][idx])
 
+        if "anyOf" in source:
+            for idx, data in enumerate(list(source["anyOf"])):
+                out["anyOf"][idx] = self.__process(source["anyOf"][idx])
+
+        if "allOf" in source:
+            for idx, data in enumerate(list(source["allOf"])):
+                out["allOf"][idx] = self.__process(source["allOf"][idx])
+
         if "codelist" in source and (
             "openCodelist" not in source or not source["openCodelist"]
         ):
