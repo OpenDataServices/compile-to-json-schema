@@ -1,15 +1,20 @@
 {
-  "id": "file-list-anyof.json",
+  "id": "file-list-allof.json",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "version": "0.1",
   "type": "array",
   "items": {
-    "anyOf": [
+    "allOf": [
       {
         "$ref": "file-list-component-part1.json"
       },
       {
-        "$ref": "file-list-component-part2.json"
+        "type": "object",
+        "properties": {
+          "pets": {
+            "type": "string"
+          }
+        }
       }
     ]
   }

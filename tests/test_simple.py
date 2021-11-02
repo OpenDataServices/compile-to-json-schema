@@ -78,6 +78,31 @@ def test_file_list_anyof():
     out_string = ctjs.get_as_string()
     out = json.loads(out_string)
 
+    assert out["items"]["anyOf"][0]["properties"]["address"]["title"] == "Home Address"
+    assert (
+        out["items"]["anyOf"][0]["properties"]["address"]["description"]
+        == "Where the person lives"
+    )
+    assert out["items"]["anyOf"][1]["properties"]["address"]["title"] == "Work Address"
+    assert (
+        out["items"]["anyOf"][1]["properties"]["address"]["description"]
+        == "Where the person works"
+    )
+
+
+def test_file_list_oneof():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "simple",
+        "file-list-oneof.json",
+    )
+
+    ctjs = CompileToJsonSchema(input_filename=input_filename)
+    out_string = ctjs.get_as_string()
+    out = json.loads(out_string)
+
     assert out["items"]["oneOf"][0]["properties"]["address"]["title"] == "Home Address"
     assert (
         out["items"]["oneOf"][0]["properties"]["address"]["description"]
@@ -87,6 +112,26 @@ def test_file_list_anyof():
     assert (
         out["items"]["oneOf"][1]["properties"]["address"]["description"]
         == "Where the person works"
+    )
+
+
+def test_file_list_allof():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "simple",
+        "file-list-allof.json",
+    )
+
+    ctjs = CompileToJsonSchema(input_filename=input_filename)
+    out_string = ctjs.get_as_string()
+    out = json.loads(out_string)
+
+    assert out["items"]["allOf"][0]["properties"]["address"]["title"] == "Home Address"
+    assert (
+        out["items"]["allOf"][0]["properties"]["address"]["description"]
+        == "Where the person lives"
     )
 
 
