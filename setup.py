@@ -17,7 +17,7 @@ setup(
     license="BSD",
     packages=find_packages(),
     long_description="Command-line tools and library for doing some non-standard things with JSON Schema",
-    install_requires=["jsonref", "jsonschema",],
+    install_requires=["jsonref", "jsonschema","pyyaml"],
     extras_require={"test": extras_require_test,},
     python_requires=">=3.5",
     classifiers=[

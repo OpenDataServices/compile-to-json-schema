@@ -6,6 +6,7 @@ from collections import OrderedDict
 from copy import deepcopy
 
 import jsonref
+import yaml
 
 
 class CompileToJsonSchema:
@@ -30,14 +31,19 @@ class CompileToJsonSchema:
 
     def get(self):
         if self.input_filename:
-            with open(self.input_filename) as fp:
-                resolved = jsonref.load(
-                    fp,
-                    object_pairs_hook=OrderedDict,
-                    base_uri=pathlib.Path(
-                        os.path.realpath(self.input_filename)
-                    ).as_uri(),
-                )
+            if self.input_filename.endswith('.yaml'):
+               with open(self.input_filename) as fp:
+                   input = yaml.load(fp, Loader=yaml.Loader)
+               resolved = jsonref.JsonRef.replace_refs(input)
+            else:
+                with open(self.input_filename) as fp:
+                    resolved = jsonref.load(
+                        fp,
+                        object_pairs_hook=OrderedDict,
+                        base_uri=pathlib.Path(
+                            os.path.realpath(self.input_filename)
+                        ).as_uri(),
+                    )
         elif isinstance(self.input_schema, dict):
             resolved = jsonref.JsonRef.replace_refs(self.input_schema)
         else:
