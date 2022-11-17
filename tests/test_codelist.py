@@ -39,7 +39,9 @@ def test_basic():
     )
 
     codelist_dir = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "fixtures", "codelists",
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
     )
 
     ctjs = CompileToJsonSchema(
@@ -60,7 +62,9 @@ def test_open_codelist():
     )
 
     codelist_dir = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "fixtures", "codelists",
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
     )
 
     ctjs = CompileToJsonSchema(
@@ -81,7 +85,9 @@ def test_closed_codelist():
     )
 
     codelist_dir = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "fixtures", "codelists",
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
     )
 
     ctjs = CompileToJsonSchema(
