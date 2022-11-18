@@ -34,7 +34,10 @@ def test_in_file_pass_as_schema():
     )
 
     with open(input_filename) as fp:
-        input_schema = json.load(fp, object_pairs_hook=OrderedDict,)
+        input_schema = json.load(
+            fp,
+            object_pairs_hook=OrderedDict,
+        )
 
     ctjs = CompileToJsonSchema(input_schema=input_schema)
     out_string = ctjs.get_as_string()
