@@ -16,6 +16,7 @@ def main():
     parser.add_argument(
         "-c",
         "--codelist-base-directory",
+        action="append",
         help="Which directory we should look in for codelists",
     )
 
@@ -24,6 +25,6 @@ def main():
     ctjs = CompileToJsonSchema(
         input_filename=args.input_file,
         set_additional_properties_false_everywhere=args.set_additional_properties_false_everywhere,
-        codelist_base_directory=args.codelist_base_directory,
+        codelist_base_directories=args.codelist_base_directory,
     )
     print(ctjs.get_as_string())

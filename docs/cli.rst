@@ -26,6 +26,11 @@ You can set the directory that is searched for codelists using the `--codelist-b
     compiletojsonschema -c data/codelists schema.json
     compiletojsonschema --codelist-base-directory data/codelists schema.json
 
+You can pass this multiple times.
+
+.. code-block:: shell-session
+
+    compiletojsonschema -c data/codelists/open -c data/codelists/closed schema.json
 
 Set additional properties false everywhere
 ------------------------------------------

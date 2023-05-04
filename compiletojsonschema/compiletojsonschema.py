@@ -14,6 +14,7 @@ class CompileToJsonSchema:
         input_filename=None,
         set_additional_properties_false_everywhere=False,
         codelist_base_directory=None,
+        codelist_base_directories=[],
         input_schema=None,
     ):
         if not isinstance(input_schema, dict) and not input_filename:
@@ -23,8 +24,14 @@ class CompileToJsonSchema:
         self.set_additional_properties_false_everywhere = (
             set_additional_properties_false_everywhere
         )
-        if codelist_base_directory:
-            self.codelist_base_directory = os.path.expanduser(codelist_base_directory)
+        if codelist_base_directories or codelist_base_directory:
+            self.codelist_base_directories = [
+                os.path.expanduser(i) for i in codelist_base_directories
+            ]
+            if codelist_base_directory:
+                self.codelist_base_directories.append(
+                    os.path.expanduser(codelist_base_directory)
+                )
         else:
             self.codelist_base_directory = os.getcwd()
 
@@ -83,23 +90,24 @@ class CompileToJsonSchema:
         if "codelist" in source and (
             "openCodelist" not in source or not source["openCodelist"]
         ):
-            filename = os.path.join(self.codelist_base_directory, source["codelist"])
-            if os.path.isfile(filename):
-                values = []
-                with open(filename) as fp:
-                    csvreader = csv.reader(fp, delimiter=",", quotechar='"')
-                    next(csvreader, None)
-                    for row in csvreader:
-                        if len(row) > 0 and row[0]:
-                            values.append(row[0])
-                if values:
-                    out["enum"] = values
-            else:
-                raise CodeListNotFoundException(
-                    "Can not find codelist: " + source["codelist"]
-                )
+            values = []
+            with open(self._get_full_filename_to_codelist(source["codelist"])) as fp:
+                csvreader = csv.reader(fp, delimiter=",", quotechar='"')
+                next(csvreader, None)
+                for row in csvreader:
+                    if len(row) > 0 and row[0]:
+                        values.append(row[0])
+            if values:
+                out["enum"] = values
 
         return out
+
+    def _get_full_filename_to_codelist(self, reference):
+        for codelist_base_directory in self.codelist_base_directories:
+            filename = os.path.join(codelist_base_directory, reference)
+            if os.path.isfile(filename):
+                return filename
+        raise CodeListNotFoundException("Can not find codelist: " + reference)
 
 
 class CodeListNotFoundException(Exception):
