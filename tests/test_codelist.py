@@ -52,6 +52,30 @@ def test_basic():
     assert out["properties"]["pet"]["enum"] == ["Dog", "Cat", "Parrot"]
 
 
+def test_multiple_dirs():
+
+    # schema.json has no openCodelist value deliberately so we can test the default options.
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
+        "schema.json",
+    )
+
+    codelist_dir1 = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
+    )
+
+    ctjs = CompileToJsonSchema(
+        input_filename=input_filename, codelist_base_directories=[codelist_dir1]
+    )
+    out = ctjs.get()
+
+    assert out["properties"]["pet"]["enum"] == ["Dog", "Cat", "Parrot"]
+
+
 def test_open_codelist():
 
     input_filename = os.path.join(

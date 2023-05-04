@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Process anyOf and allOf and well as oneOf https://github.com/OpenDataServices/compile-to-json-schema/issues/28
+- Can specify multiple codelist directories
+  - New param `codelist_base_directories`
+  - CLI flag can be specified multiple times
 
 ### Removed
 
