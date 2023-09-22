@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.0] - 2023-09-22
+
 ### Added
 
 - Process anyOf and allOf and well as oneOf https://github.com/OpenDataServices/compile-to-json-schema/issues/28
