@@ -4,7 +4,7 @@ extras_require_test = ["pytest", "flake8", "isort", "black==22.10.0"]
 
 setup(
     name="compiletojsonschema",
-    version="0.4.0",
+    version="0.5.0",
     author="Open Data Services",
     author_email="code@opendataservices.coop",
     url="https://github.com/OpenDataServices/compile-to-json-schema",

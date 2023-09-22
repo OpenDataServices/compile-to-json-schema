@@ -96,3 +96,27 @@ def test_closed_codelist():
     out = ctjs.get()
 
     assert out["properties"]["pet"]["enum"] == ["Dog", "Cat", "Parrot"]
+
+
+def test_closed_codelist_array():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
+        "schema-closed-codelist-array.json",
+    )
+
+    codelist_dir = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "codelists",
+    )
+
+    ctjs = CompileToJsonSchema(
+        input_filename=input_filename, codelist_base_directory=codelist_dir
+    )
+    out = ctjs.get()
+
+    assert not out["properties"]["pet"].get("enum")
+    assert out["properties"]["pet"]["items"]["enum"] == ["Dog", "Cat", "Parrot"]

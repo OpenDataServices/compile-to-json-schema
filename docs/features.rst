@@ -139,6 +139,9 @@ And the resulting output would be:
 
 You can pass a base directory that will be searched for codelists. If not passed, the current working directory is searched
 
+This will work for situations where one value can be selected and situations with an array where multiple values can be selected.
+Set `type:"array"` with the codelist field, and start defining the `"items"` key and the tool will put the enum options on the array items for you.
+
 Finally, if the `openCodelist` variable exists and that is set to true, nothing will be done. This means a codelist is
 "Open" (ie - allows the user to add any values they want) as opposed to "Closed" (ie - the user can only add the values
 in the codelist).
