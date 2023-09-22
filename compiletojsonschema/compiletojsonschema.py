@@ -93,7 +93,12 @@ class CompileToJsonSchema:
                         if len(row) > 0 and row[0]:
                             values.append(row[0])
                 if values:
-                    out["enum"] = values
+                    if out.get("type") == "array" and isinstance(
+                        out.get("items"), dict
+                    ):
+                        out["items"]["enum"] = values
+                    else:
+                        out["enum"] = values
             else:
                 raise CodeListNotFoundException(
                     "Can not find codelist: " + source["codelist"]

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Process anyOf and allOf and well as oneOf https://github.com/OpenDataServices/compile-to-json-schema/issues/28
+- When codelist is used on an array, the enum is set for items in that array
 
 ### Removed
 
