@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- URN features
+-- To CompileToJsonSchema class: load_urn_schema_filenames option
+-- To CLI: --urn-schema-filename option
 
 ### Removed
 

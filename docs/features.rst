@@ -155,3 +155,52 @@ you may want to generate a strict version of your schema that doesn't allow any 
 This can be used for testing - for example, checking your sample data does not have any additional properties.
 
 This is an optional mode, which defaults to off.
+
+URN Refs
+--------
+
+You can use URN's in refs.
+
+For example, if you have the `library.json` schema:
+
+.. code-block:: json
+
+    {
+      "$id": "urn:library",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "address": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+
+And a schema `schema.json`:
+
+.. code-block:: json
+
+    {
+      "$id": "urn:schema",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "home_address": {
+            "$ref": "urn:library#/$defs/address"
+          },
+          "work_address": {
+            "$ref": "urn:library#/$defs/address"
+          }
+        }
+    }
+
+This will compile.
+
+To do so:
+
+* you should pass the actual schema file `schema.json` to the tool where processing should start.
+* you will need to make sure the tool knows about the other `library.json` file.
+
