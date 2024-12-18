@@ -15,6 +15,7 @@ setup(
     install_requires=[
         "jsonref",
         "jsonschema",
+        "referencing",
     ],
     extras_require={
         "test": extras_require_test,
