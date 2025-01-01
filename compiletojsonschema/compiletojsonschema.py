@@ -122,6 +122,10 @@ class CompileToJsonSchema:
             for k, v in source["dependentSchemas"].items():
                 out["dependentSchemas"][k] = self.__process_data(v)
 
+        for keyword in ["if", "then", "else"]:
+            if keyword in source:
+                out[keyword] = self.__process_data(source[keyword])
+
         if "codelist" in source and (
             "openCodelist" not in source or not source["openCodelist"]
         ):
