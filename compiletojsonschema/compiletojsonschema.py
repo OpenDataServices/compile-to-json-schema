@@ -30,6 +30,8 @@ class CompileToJsonSchema:
         # These vars hold output
         self._processed = False
         self._output_json = None
+        self._output_types_used = None
+        self._output_keywords_used = None
 
     def get(self):
         self.__process()
@@ -38,12 +40,22 @@ class CompileToJsonSchema:
     def get_as_string(self):
         return json.dumps(self.get(), indent=2)
 
+    def get_types_used(self):
+        self.__process()
+        return sorted(self._output_types_used.keys())
+
+    def get_keywords_used(self):
+        self.__process()
+        return sorted(self._output_keywords_used.keys())
+
     def __process(self):
         # If already processed, return .....
         if self._processed:
             return
 
         # Process now ....
+        self._output_types_used = {}
+        self._output_keywords_used = {}
         if self.input_filename:
             with open(self.input_filename) as fp:
                 resolved = jsonref.load(
@@ -64,7 +76,19 @@ class CompileToJsonSchema:
 
         out = deepcopy(source)
 
+        for keyword in source:
+            self._output_keywords_used[keyword] = {}
+
+        if "type" in source:
+            if isinstance(source["type"], str):
+                self._output_types_used[source["type"]] = {}
+            elif isinstance(source["type"], list):
+                for t in source["type"]:
+                    if isinstance(t, str):
+                        self._output_types_used[t] = {}
+
         if hasattr(source, "__reference__"):
+            self._output_keywords_used["$ref"] = {}
             for attr in list(source.__reference__):
                 if not attr == "$ref":
                     out[attr] = source.__reference__[attr]

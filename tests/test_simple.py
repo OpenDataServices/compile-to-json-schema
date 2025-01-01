@@ -23,6 +23,16 @@ def test_in_file():
     assert out["properties"]["home_address"]["title"] == "Home Address"
     assert out["properties"]["home_address"]["description"] == "Where the person lives"
 
+    assert ["object", "string"] == ctjs.get_types_used()
+    assert [
+        "$ref",
+        "definitions",
+        "description",
+        "properties",
+        "title",
+        "type",
+    ] == ctjs.get_keywords_used()
+
 
 def test_in_file_pass_as_schema():
 
@@ -66,6 +76,15 @@ def test_file_main():
     assert out["properties"]["work_address"]["description"] == "Where the person works"
     assert out["properties"]["home_address"]["title"] == "Home Address"
     assert out["properties"]["home_address"]["description"] == "Where the person lives"
+
+    assert ["object", "string"] == ctjs.get_types_used()
+    assert [
+        "$ref",
+        "description",
+        "properties",
+        "title",
+        "type",
+    ] == ctjs.get_keywords_used()
 
 
 def test_file_list_anyof():
