@@ -37,3 +37,14 @@ To enable this mode, pass the `--set-additional-properties-false-everywhere` or 
 
     compiletojsonschema -s input.json
     compiletojsonschema --set-additional-properties-false-everywhere input.json
+
+Get Audit output
+----------------
+
+Instead of the compiled JSON schema, you can get an audit output by passing the `--audit` or `-a` flag.
+
+
+.. code-block:: shell-session
+
+    compiletojsonschema -a input.json
+    compiletojsonschema --audit input.json

@@ -6,6 +6,7 @@ from compiletojsonschema.compiletojsonschema import CompileToJsonSchema
 def main():
     parser = argparse.ArgumentParser(description="Compile To JSON Schema CLI")
 
+    # Input Arguments
     parser.add_argument("input_file")
     parser.add_argument(
         "-s",
@@ -19,6 +20,15 @@ def main():
         help="Which directory we should look in for codelists",
     )
 
+    # Output Arguments
+    parser.add_argument(
+        "-a",
+        "--audit",
+        help="Instead of complied schema, output an audit of the input schema",
+        action="store_true",
+    )
+
+    # Process
     args = parser.parse_args()
 
     ctjs = CompileToJsonSchema(
@@ -26,4 +36,12 @@ def main():
         set_additional_properties_false_everywhere=args.set_additional_properties_false_everywhere,
         codelist_base_directory=args.codelist_base_directory,
     )
-    print(ctjs.get_as_string())
+
+    if args.audit:
+        print("\nKeywords used in the schema:")
+        print(", ".join(ctjs.get_keywords_used()))
+
+        print("\nTypes used in the schema:")
+        print(", ".join(ctjs.get_types_used()))
+    else:
+        print(ctjs.get_as_string())
