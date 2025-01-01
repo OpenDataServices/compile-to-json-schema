@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Cache results of processing. Repeated calls to get methods will be faster.
 
 ### Removed
 

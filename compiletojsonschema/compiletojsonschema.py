@@ -27,8 +27,23 @@ class CompileToJsonSchema:
             self.codelist_base_directory = os.path.expanduser(codelist_base_directory)
         else:
             self.codelist_base_directory = os.getcwd()
+        # These vars hold output
+        self._processed = False
+        self._output_json = None
 
     def get(self):
+        self.__process()
+        return self._output_json
+
+    def get_as_string(self):
+        return json.dumps(self.get(), indent=2)
+
+    def __process(self):
+        # If already processed, return .....
+        if self._processed:
+            return
+
+        # Process now ....
         if self.input_filename:
             with open(self.input_filename) as fp:
                 resolved = jsonref.load(
@@ -42,15 +57,10 @@ class CompileToJsonSchema:
             resolved = jsonref.JsonRef.replace_refs(self.input_schema)
         else:
             raise Exception("Must pass input_filename or input_schema")
+        self._output_json = self.__process_data(resolved)
+        self._processed = True
 
-        resolved = self.__process(resolved)
-
-        return resolved
-
-    def get_as_string(self):
-        return json.dumps(self.get(), indent=2)
-
-    def __process(self, source):
+    def __process_data(self, source):
 
         out = deepcopy(source)
 
@@ -61,24 +71,26 @@ class CompileToJsonSchema:
 
         if "properties" in source:
             for leaf in list(source["properties"]):
-                out["properties"][leaf] = self.__process(source["properties"][leaf])
+                out["properties"][leaf] = self.__process_data(
+                    source["properties"][leaf]
+                )
             if self.set_additional_properties_false_everywhere:
                 out["additionalProperties"] = False
 
         if "items" in source:
-            out["items"] = self.__process(source["items"])
+            out["items"] = self.__process_data(source["items"])
 
         if "oneOf" in source:
             for idx, data in enumerate(list(source["oneOf"])):
-                out["oneOf"][idx] = self.__process(source["oneOf"][idx])
+                out["oneOf"][idx] = self.__process_data(source["oneOf"][idx])
 
         if "anyOf" in source:
             for idx, data in enumerate(list(source["anyOf"])):
-                out["anyOf"][idx] = self.__process(source["anyOf"][idx])
+                out["anyOf"][idx] = self.__process_data(source["anyOf"][idx])
 
         if "allOf" in source:
             for idx, data in enumerate(list(source["allOf"])):
-                out["allOf"][idx] = self.__process(source["allOf"][idx])
+                out["allOf"][idx] = self.__process_data(source["allOf"][idx])
 
         if "codelist" in source and (
             "openCodelist" not in source or not source["openCodelist"]
