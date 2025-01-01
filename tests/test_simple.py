@@ -222,3 +222,34 @@ def test_file_if_then_else():
         "title",
         "type",
     ] == ctjs.get_keywords_used()
+
+
+def test_file_not():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "simple",
+        "file-not.json",
+    )
+
+    ctjs = CompileToJsonSchema(input_filename=input_filename)
+    out = ctjs.get()
+
+    assert (
+        out["oneOf"][1]["properties"]["address"]["title"]
+        == "Must have an address with a credit card"
+    )
+
+    assert ["object", "string"] == ctjs.get_types_used()
+    assert [
+        "$ref",
+        "description",
+        "not",
+        "oneOf",
+        "pattern",
+        "properties",
+        "required",
+        "title",
+        "type",
+    ] == ctjs.get_keywords_used()

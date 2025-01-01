@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added audit functionality. Thanks to Duncan and https://github.com/OpenDataServices/json-schema-auditor
 - Can process dependentSchemas keyword
 - Can process if / then / else keywords
+- Can process not keyword
 
 ### Removed
 

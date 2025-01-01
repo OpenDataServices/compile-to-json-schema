@@ -122,7 +122,7 @@ class CompileToJsonSchema:
             for k, v in source["dependentSchemas"].items():
                 out["dependentSchemas"][k] = self.__process_data(v)
 
-        for keyword in ["if", "then", "else"]:
+        for keyword in ["if", "then", "else", "not"]:
             if keyword in source:
                 out[keyword] = self.__process_data(source[keyword])
 
