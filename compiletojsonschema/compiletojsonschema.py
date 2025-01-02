@@ -92,6 +92,12 @@ class CompileToJsonSchema:
             for idx, data in enumerate(list(source["allOf"])):
                 out["allOf"][idx] = self.__process_data(source["allOf"][idx])
 
+        if "dependentSchemas" in source and isinstance(
+            source["dependentSchemas"], dict
+        ):
+            for k, v in source["dependentSchemas"].items():
+                out["dependentSchemas"][k] = self.__process_data(v)
+
         if "codelist" in source and (
             "openCodelist" not in source or not source["openCodelist"]
         ):
