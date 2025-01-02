@@ -141,3 +141,39 @@ def test_file_list_allof():
 def test_passing_empty_schema_is_ok():
     ctjs = CompileToJsonSchema(input_schema={})
     assert "{}" == ctjs.get_as_string()
+
+
+def test_file_dependentSchemas():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "simple",
+        "file-dependentSchemas.json",
+    )
+
+    ctjs = CompileToJsonSchema(input_filename=input_filename)
+    out = ctjs.get()
+
+    assert (
+        out["dependentSchemas"]["credit_card"]["properties"]["address"]["title"]
+        == "Credit card number (with optional address elements)"
+    )
+
+
+def test_file_if_then_else():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "simple",
+        "file-if-then-else.json",
+    )
+
+    ctjs = CompileToJsonSchema(input_filename=input_filename)
+    out = ctjs.get()
+
+    assert (
+        out["then"]["properties"]["address"]["title"]
+        == "Must have an address with a credit card"
+    )

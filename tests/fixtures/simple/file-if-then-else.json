@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "credit_card": {
+      "type": "string"
+    }
+  },
+  "if": {
+    "properties": {
+      "credit_card": {
+        "pattern": "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "address": {
+        "$ref": "file-definitions.json#/definition/address",
+        "title": "Must have an address with a credit card"
+      }
+    },
+    "required": ["address"]
+  },
+  "else": {
+    "properties": {
+      "cash_on_delivery": { "const": "Yup" }
+    },
+    "required": ["cash_on_delivery"]
+  }
+}
