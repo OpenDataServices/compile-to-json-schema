@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Cache results of processing. Repeated calls to get methods will be faster.
 - Can process dependentSchemas keyword
+- Can process if / then / else keywords
 
 ### Removed
 

@@ -159,3 +159,21 @@ def test_file_dependentSchemas():
         out["dependentSchemas"]["credit_card"]["properties"]["address"]["title"]
         == "Credit card number (with optional address elements)"
     )
+
+
+def test_file_if_then_else():
+
+    input_filename = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "fixtures",
+        "simple",
+        "file-if-then-else.json",
+    )
+
+    ctjs = CompileToJsonSchema(input_filename=input_filename)
+    out = ctjs.get()
+
+    assert (
+        out["then"]["properties"]["address"]["title"]
+        == "Must have an address with a credit card"
+    )
