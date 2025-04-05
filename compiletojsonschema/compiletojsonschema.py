@@ -5,8 +5,6 @@ import pathlib
 from collections import OrderedDict
 from copy import deepcopy
 
-import jsonref
-
 
 class CompileToJsonSchema:
     def __init__(
@@ -31,15 +29,12 @@ class CompileToJsonSchema:
     def get(self):
         if self.input_filename:
             with open(self.input_filename) as fp:
-                resolved = jsonref.load(
+                resolved = json.load(
                     fp,
                     object_pairs_hook=OrderedDict,
-                    base_uri=pathlib.Path(
-                        os.path.realpath(self.input_filename)
-                    ).as_uri(),
                 )
         elif isinstance(self.input_schema, dict):
-            resolved = jsonref.JsonRef.replace_refs(self.input_schema)
+            resolved = self.input_schema
         else:
             raise Exception("Must pass input_filename or input_schema")
 
