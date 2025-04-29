@@ -1,4 +1,5 @@
 import csv
+import functools
 import json
 import os
 import pathlib
@@ -6,6 +7,16 @@ from collections import OrderedDict
 from copy import deepcopy
 
 import jsonref
+import referencing
+
+
+def _jsonref_loader(uri, urn_registry=None):
+    if uri.startswith("urn:"):
+        if urn_registry and uri in urn_registry:
+            return urn_registry.contents(uri)
+        else:
+            raise Exception("URN {} not found".format(uri))
+    return jsonref.jsonloader(uri)
 
 
 class CompileToJsonSchema:
@@ -15,6 +26,7 @@ class CompileToJsonSchema:
         set_additional_properties_false_everywhere=False,
         codelist_base_directory=None,
         input_schema=None,
+        load_urn_schema_filenames=[],
     ):
         if not isinstance(input_schema, dict) and not input_filename:
             raise Exception("Must pass input_filename or input_schema")
@@ -27,19 +39,35 @@ class CompileToJsonSchema:
             self.codelist_base_directory = os.path.expanduser(codelist_base_directory)
         else:
             self.codelist_base_directory = os.getcwd()
+        self.load_urn_schema_filenames = load_urn_schema_filenames
 
     def get(self):
+        urn_registry = None
+        if self.load_urn_schema_filenames:
+            urn_registry = referencing.Registry()
+            for urn_schema_filename in self.load_urn_schema_filenames:
+                with open(urn_schema_filename) as fp:
+                    urn_schema_json = json.load(fp)
+                    urn_schema_obj = referencing.Resource.from_contents(urn_schema_json)
+                    urn_registry = urn_schema_obj @ urn_registry
+
         if self.input_filename:
             with open(self.input_filename) as fp:
                 resolved = jsonref.load(
                     fp,
+                    loader=functools.partial(
+                        _jsonref_loader, urn_registry=urn_registry
+                    ),
                     object_pairs_hook=OrderedDict,
                     base_uri=pathlib.Path(
                         os.path.realpath(self.input_filename)
                     ).as_uri(),
                 )
         elif isinstance(self.input_schema, dict):
-            resolved = jsonref.JsonRef.replace_refs(self.input_schema)
+            resolved = jsonref.JsonRef.replace_refs(
+                self.input_schema,
+                loader=functools.partial(_jsonref_loader, urn_registry=urn_registry),
+            )
         else:
             raise Exception("Must pass input_filename or input_schema")
 

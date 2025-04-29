@@ -1,0 +1,19 @@
+{
+  "$id": "urn:library",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "address": {
+      "title": "An Address",
+      "description": "A Description",
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

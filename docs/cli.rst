@@ -37,3 +37,15 @@ To enable this mode, pass the `--set-additional-properties-false-everywhere` or 
 
     compiletojsonschema -s input.json
     compiletojsonschema --set-additional-properties-false-everywhere input.json
+
+
+URN Refs
+--------
+
+Pass the names of files to load. This can be used multiple times.
+
+.. code-block:: shell-session
+
+    compiletojsonschema -u library.json -u components.json schema.json
+    compiletojsonschema --urn-schema-filename library.json --urn-schema-filename components.json schema.json
+
